@@ -1,0 +1,27 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from src.api.categories.routes import router as category_router
+from src.api.groups.routes import router as group_router
+from src.api.products.routes import router as product_router
+
+app = FastAPI(title="Kartax API", description="In development", version="1.0")
+
+app.add_middleware(
+  CORSMiddleware,
+  allow_origins=["*"],
+  allow_credentials=True,
+  allow_methods=["*"],
+  allow_headers=["*"],
+)
+
+@app.get("/")
+async def root():
+  return {
+    "status": "Api Running",
+    "swagger": "/docs",
+  }
+
+app.include_router(category_router)
+app.include_router(group_router)
+app.include_router(product_router)
