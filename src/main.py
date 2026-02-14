@@ -9,9 +9,12 @@ app = FastAPI(title="Kartax API", description="In development", version="1.0")
 
 app.add_middleware(
   CORSMiddleware,
-  allow_origins=["*"],
+  allow_origins=[
+    "http://localhost:4200",
+    "https://kartax-app-angular.vercel.app"
+  ],
   allow_credentials=True,
-  allow_methods=["*"],
+  allow_methods=["GET", "POST", "PUT", "DELETE"],
   allow_headers=["*"],
 )
 
@@ -22,6 +25,6 @@ async def root():
     "swagger": "/docs",
   }
 
-app.include_router(category_router)
-app.include_router(group_router)
-app.include_router(product_router)
+app.include_router(category_router, prefix="/api")
+app.include_router(group_router, prefix="/api")
+app.include_router(product_router, prefix="/api")
