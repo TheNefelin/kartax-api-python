@@ -10,19 +10,6 @@ from src.shared.dtos import ApiResponse
 
 router = APIRouter(prefix="/categories", tags=["categories"])
 
-# GetAll Public
-@router.get(
-  "/public",
-  response_model=ApiResponse[List[CategoryDTO]],
-  status_code=status.HTTP_200_OK
-)
-def get_all_public(db: Session = Depends(get_db)):
-  try:
-    items = repository.get_all_public(db)
-    return ApiResponse.success(data=items)
-  except Exception as e:
-    return ApiResponse.server_error(str(e))
-
 # GetAll
 @router.get(
   "/",
@@ -31,7 +18,7 @@ def get_all_public(db: Session = Depends(get_db)):
 )
 def get_all(db: Session = Depends(get_db)):
   try:
-    items = repository.get_all_admin(db)
+    items = repository.get_all(db)
     return ApiResponse.success(data=items)
   except Exception as e:
     return ApiResponse.server_error(str(e))

@@ -20,4 +20,5 @@ class ProductDTO(BaseModel):
   parent_product_id: Optional[int]
   group_id: int
 
-  model_config = ConfigDict(from_attributes=True)
+  model_config = ConfigDict(from_attributes=True, orm_mode=True)
+ 

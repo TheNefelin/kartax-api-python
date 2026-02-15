@@ -4,6 +4,7 @@
 [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 ```sh
 .venv\Scripts\activate
+source .venv/bin/activate  
 python3 run.py
 ```
 
@@ -28,3 +29,49 @@ pip install pydantic[email] # Extras opcionales de Pydantic
 ```sh
 pip freeze > requirements.txt
 ```
+
+## Structure
+```
+project
+│
+├─ src/
+│   ├─ api/
+│   │   ├─ categories/
+│   │   │   ├─ dto.py
+│   │   │   ├─ models.py
+│   │   │   ├─ repository.py
+│   │   │   ├─ routes.py
+│   │   │   └─ service.py
+│   │   ├─ groups/
+│   │   │   ├─ dto.py
+│   │   │   ├─ models.py
+│   │   │   ├─ repository.py
+│   │   │   └─ routes.py
+│   │   ├─ mobile/
+│   │   │   ├─ dto.py
+│   │   │   ├─ repository.py
+│   │   │   └─ routes.py
+│   │   └─ products/
+│   │       ├─ dto.py
+│   │       ├─ models.py
+│   │       ├─ repository.py
+│   │       └─ routes.py
+│   │
+│   ├─ core/
+│   │   ├─ config.py
+│   │   └─ database.py
+│   │
+│   ├─ services/
+│   │   └─ cloudinary_service.py
+│   │
+│   ├─ shared/
+│   │   └─ dtos.py
+│   │
+│   └─ main.py
+│
+├─ LICENSE.txt
+├─ README.md
+├─ requirements.txt
+└─ run.py
+```
+

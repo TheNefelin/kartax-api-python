@@ -12,6 +12,4 @@ class CategoryDTO(BaseModel):
   created_at: datetime
   updated_at: datetime
 
-  groups: List[GroupDTO]
-
   model_config = ConfigDict(from_attributes=True)
