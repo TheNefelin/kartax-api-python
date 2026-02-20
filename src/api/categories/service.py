@@ -1,11 +1,12 @@
 from fastapi import UploadFile
 from sqlalchemy.orm import Session
 
-from src.api.categories import repository, models
 from src.services.cloudinary_service import delete_image, upload_image_16_9
+from . import repository, models
 
 PATH = "kartax"
 
+# CREATE
 def create_with_images(name: str, file: UploadFile, db: Session):
   public_id = None
 
@@ -38,7 +39,7 @@ def create_with_images(name: str, file: UploadFile, db: Session):
 
     raise e
 
-
+# DELETE
 def delete_with_images(id: int, db: Session):
   try:
     item = repository.get_model_by_id(id, db)
@@ -58,7 +59,7 @@ def delete_with_images(id: int, db: Session):
   except Exception as e:
     raise e
 
-
+# Extraer public_id de Cloudinary
 def extract_public_id(url: str) -> str | None:
   """
   Extrae:

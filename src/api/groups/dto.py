@@ -2,8 +2,6 @@ from datetime import datetime
 from typing import List
 from pydantic import BaseModel, ConfigDict
 
-from src.api.products.dto import ProductDTO
-
 class GroupDTO(BaseModel): 
   id_group: int
   name: str

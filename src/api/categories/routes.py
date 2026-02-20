@@ -2,13 +2,13 @@ from typing import List
 from fastapi import APIRouter, Depends, File, Form, UploadFile, status
 from sqlalchemy.orm import Session
 
-from src.api.categories import repository, dto, service
 from src.core.database import get_db
 from src.shared.dtos import ApiResponse
+from . import repository, dto, service
 
 router = APIRouter(prefix="/categories", tags=["categories"])
 
-# GetAll
+# GET ALL
 @router.get("/", response_model=ApiResponse[List[dto.CategoryDTO]], status_code=status.HTTP_200_OK)
 def get_all(db: Session = Depends(get_db)):
   try:
@@ -30,7 +30,7 @@ def get_by_id(id: int, db: Session = Depends(get_db)):
   except Exception as e:
     return ApiResponse.server_error(str(e))
 
-# Create
+# CREATE
 @router.post("/", response_model=ApiResponse[dto.CategoryDTO], status_code=status.HTTP_201_CREATED)
 def create(
   name: str = Form(...),

@@ -1,13 +1,12 @@
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.orm import Session
 
-from src.api.categories import dto, models
+from . import dto, models
 
-# Get All
+# GET All
 def get_all(db: Session):
   try:
     items = db.query(models.Category).all()
-
     return [dto.CategoryDTO.model_validate(item) for item in items]
   except SQLAlchemyError as e:
     raise e
@@ -16,29 +15,23 @@ def get_all(db: Session):
 def get_by_id(id: int, db: Session):
   try:
     item = db.query(models.Category).filter(models.Category.id_category == id).first()
-
     return dto.CategoryDTO.model_validate(item)
   except SQLAlchemyError as e:
     raise e
 
-def get_model_by_id(id: int, db: Session):
-  return db.query(models.Category).filter(
-    models.Category.id_category == id
-  ).first()
-
 # CREATE
 def create(name: str, img_url: str, db: Session):
   try:
-    new_item = models.Category(
+    item = models.Category(
       name=name,
       img_url=img_url
     )
 
-    db.add(new_item)
+    db.add(item)
     db.commit()
-    db.refresh(new_item)
+    db.refresh(item)
 
-    return dto.CategoryDTO.model_validate(new_item)
+    return dto.CategoryDTO.model_validate(item)
   except IntegrityError as e:
     db.rollback()
     raise ValueError("Error de integridad en la base de datos")  
@@ -50,6 +43,7 @@ def create(name: str, img_url: str, db: Session):
 def delete(id: int, db: Session):
   try:
     item = db.query(models.Category).filter(models.Category.id_category == id).first()
+    
     
     if not item:
       return 0
